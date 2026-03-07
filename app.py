@@ -1,12 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for
+ #from http import client
+
+import os
+from flask import Flask , render_template, request, redirect, url_for
 from pymongo import MongoClient
+from dotenv import load_dotenv
+
+load_dotenv()
+mongo_uri = os.getenv("client")
+client = MongoClient(mongo_uri)
+print(mongo_uri)
+
+db = client["studentDB"]
+
+collection = db["students"]
 
 app = Flask(__name__)
 
-# MongoDB Atlas Connection
-client = MongoClient("mongodb+srv://weecan2026_db_user:hk1234@flasklearner.abs2boi.mongodb.net/?appName=flasklearner")
-db = client["studentDB"]
-collection = db["students"]
+
 
 @app.route('/')
 def form():
@@ -37,4 +47,4 @@ def success():
     return render_template('success.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=8000)
+    app.run(debug=True, host='0.0.0.0', port=9000)
