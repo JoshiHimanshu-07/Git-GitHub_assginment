@@ -1,7 +1,8 @@
  #from http import client
 
+import json
 import os
-from flask import Flask , render_template, request, redirect, url_for
+from flask import Flask, jsonify , render_template, request, redirect, url_for
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
@@ -45,6 +46,12 @@ def submit():
 @app.route('/success')
 def success():
     return render_template('success.html')
+
+@app.route('/api')
+def api():
+    with open('data.json') as f:
+        data = json.load(f)
+    return jsonify(data)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=9000)
