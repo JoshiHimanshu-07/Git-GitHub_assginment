@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 mongo_uri = os.getenv("client")
 client = MongoClient(mongo_uri)
-print(mongo_uri)
+
 
 db = client["studentDB"]
 
@@ -47,9 +47,9 @@ def submit():
 def success():
     return render_template('success.html')
 
-@app.route('/api')
+@app.route('/api', methods=['GET'])
 def api():
-    with open('data.json') as f:
+    with open('data-2.json','r') as f:
         data = json.load(f)
     return jsonify(data)
 
